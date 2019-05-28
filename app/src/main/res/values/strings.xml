@@ -15,4 +15,7 @@
     <string name="title_new_moon">Next New Moon</string>
     <string name="title_full_moon">Next Full Moon</string>
     <string name="title_moon_illumination">Moon Illumination [%]</string>
+    <string name="title_latitude">Latitude</string>
+    <string name="title_longitude">Longitude</string>
+    <string name="button_proceed">Proceed</string>
 </resources>
