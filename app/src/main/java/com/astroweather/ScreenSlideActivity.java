@@ -48,11 +48,11 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            if(position == 1) {
-                return new ScreenSlidePageFragment();
+            if(position == 0) {
+                return new ScreenSlideSunFragment();
             }
             else {
-                return new ScreenSlidePageFragment2();
+                return new ScreenSlideMoonFragment();
             }
 
         }

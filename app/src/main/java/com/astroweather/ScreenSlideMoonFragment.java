@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ScreenSlidePageFragment2 extends Fragment {
+public class ScreenSlideMoonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment2_layout, container, false);
+                R.layout.moon_fragment_layout, container, false);
 
         return rootView;
     }

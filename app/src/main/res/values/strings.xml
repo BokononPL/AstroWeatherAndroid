@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">AstroWeather</string>
     <string name="action_settings">Settings</string>
+    <string name="title_sun">Sun</string>
+    <string name="title_sunrise_time">Sunrise Time</string>
+    <string name="title_sunrise_azimuth">Sunrise Azimuth</string>
+    <string name="title_sunset_time">Sunset Time</string>
+    <string name="title_sunset_azimuth">Sunset Azimuth</string>
+    <string name="title_twilight_morning">Twilight Morning Time</string>
+    <string name="title_twilight_evening">Twilight Evening Time</string>
 </resources>
