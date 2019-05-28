@@ -39,9 +39,9 @@ public class ScreenSlideSunFragment extends Fragment {
         sunrise_azimuth = rootView.findViewById(R.id.Sunrise_Azimuth_Value_textView);
         sunset_time = rootView.findViewById(R.id.Sunset_Time_Value_textView);
         sunset_azimuth = rootView.findViewById(R.id.Sunset_Azimuth_Value_textView);
-        currentTime = rootView.findViewById(R.id.Current_Time_textView);
         twilight_morning = rootView.findViewById(R.id.Twilight_Morning_Value_textView);
         twilight_evening = rootView.findViewById(R.id.Twilight_Evening_Value_textView);
+        currentTime = rootView.findViewById(R.id.Current_Time_textView);
 
 
         TimerTask taskAstro = new TimerTask() {

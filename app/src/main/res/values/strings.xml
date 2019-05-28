@@ -8,4 +8,11 @@
     <string name="title_sunset_azimuth">Sunset Azimuth</string>
     <string name="title_twilight_morning">Twilight Morning Time</string>
     <string name="title_twilight_evening">Twilight Evening Time</string>
+    <string name="title_moon">Moon</string>
+    <string name="title_moonrise_time">Moonrise Time</string>
+    <string name="title_synodic_day">Day of the Synodic Month</string>
+    <string name="title_moonset_time">Moonset Time</string>
+    <string name="title_new_moon">Next New Moon</string>
+    <string name="title_full_moon">Next Full Moon</string>
+    <string name="title_moon_illumination">Moon Illumination [%]</string>
 </resources>
