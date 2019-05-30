@@ -14,6 +14,24 @@ public class ScreenSlideActivity extends FragmentActivity {
 
     private PagerAdapter pagerAdapter;
 
+    private float latitude;
+    private float longitude;
+    private int refreshrate;
+
+    public int getRefreshrate() {
+        return refreshrate;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +41,10 @@ public class ScreenSlideActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
+
+        latitude = getIntent().getFloatExtra("latitude", 0);
+        longitude = getIntent().getFloatExtra("longitude", 0);
+        refreshrate = getIntent().getIntExtra("refreshrate", 1);
     }
 
     @Override

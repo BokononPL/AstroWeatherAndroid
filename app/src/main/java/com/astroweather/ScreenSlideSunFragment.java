@@ -1,6 +1,7 @@
 package com.astroweather;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +30,22 @@ public class ScreenSlideSunFragment extends Fragment {
     private TextView currentTime;
     private ViewGroup rootView;
 
+    private float latitude = 0;
+    private float longitude = 0;
+    private int refreshrate = 1000;
+
+    private Timer timer;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.sun_fragment_layout, container, false);
+
+        ScreenSlideActivity ssa = (ScreenSlideActivity) getActivity();
+        latitude = ssa.getLatitude();
+        longitude = ssa.getLongitude();
+        refreshrate = ssa.getRefreshrate() * 1000;
 
         sunrise_time = rootView.findViewById(R.id.Sunrise_Time_Value_textView);
         sunrise_azimuth = rootView.findViewById(R.id.Sunrise_Azimuth_Value_textView);
@@ -55,7 +67,7 @@ public class ScreenSlideSunFragment extends Fragment {
                         now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND),
                         (zone.getOffset(new Date().getTime()) / 1000 / 60 / 60 ) - 1, zone.inDaylightTime(new Date())
                 );
-                AstroCalculator.Location location = new AstroCalculator.Location(51.0, 19.0);
+                AstroCalculator.Location location = new AstroCalculator.Location(latitude, longitude);
                 AstroCalculator as = new AstroCalculator(dateTime, location);
 
 
@@ -82,10 +94,16 @@ public class ScreenSlideSunFragment extends Fragment {
             }
         };
 
-        Timer timer = new Timer(false);
-        timer.scheduleAtFixedRate(taskAstro, 0, 2000);
+        timer = new Timer(false);
+        timer.scheduleAtFixedRate(taskAstro, 0, refreshrate);
         timer.scheduleAtFixedRate(taskTime, 0, 1000);
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }
