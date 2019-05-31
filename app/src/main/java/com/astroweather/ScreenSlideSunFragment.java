@@ -108,6 +108,60 @@ public class ScreenSlideSunFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer.cancel();
+        timer = new Timer(false);
+
+        TimerTask taskAstro = new TimerTask() {
+            @Override
+            public void run() {
+                TimeZone zone = TimeZone.getTimeZone("Europe/Warsaw");
+                TimeZone.setDefault(zone);
+                Calendar now = Calendar.getInstance();
+                AstroDateTime dateTime = new AstroDateTime(
+                        now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH),
+                        now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND),
+                        (zone.getOffset(new Date().getTime()) / 1000 / 60 / 60 ) - 1, zone.inDaylightTime(new Date())
+                );
+                AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
+                AstroCalculator as = new AstroCalculator(dateTime, location);
+
+
+                getActivity().runOnUiThread(()->{
+                    sunrise_time.setText(as.getSunInfo().getSunrise().toString());
+                    sunrise_azimuth.setText(Double.toString(as.getSunInfo().getAzimuthRise()));
+                    sunset_time.setText(as.getSunInfo().getSunset().toString());
+                    sunset_azimuth.setText(Double.toString(as.getSunInfo().getAzimuthSet()));
+                    twilight_morning.setText(as.getSunInfo().getTwilightMorning().toString());
+                    twilight_evening.setText(as.getSunInfo().getTwilightEvening().toString());
+                });
+            }
+        };
+
+        TimerTask taskTime = new TimerTask() {
+            @Override
+            public void run() {
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Calendar now = Calendar.getInstance();
+
+                getActivity().runOnUiThread(()->{
+                    currentTime.setText(dateFormat.format((now.getTime())));
+                });
+            }
+        };
+
+        timer.scheduleAtFixedRate(taskAstro, 0, refreshrate);
+        timer.scheduleAtFixedRate(taskTime, 0, 1000);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         timer.cancel();

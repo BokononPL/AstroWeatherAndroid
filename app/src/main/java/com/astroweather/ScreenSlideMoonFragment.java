@@ -1,7 +1,10 @@
 package com.astroweather;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 public class ScreenSlideMoonFragment extends Fragment {
 
@@ -39,6 +43,7 @@ public class ScreenSlideMoonFragment extends Fragment {
 
     private static final double avg_synodic_day = 29.530587;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +65,14 @@ public class ScreenSlideMoonFragment extends Fragment {
         longitude = rootView.findViewById(R.id.Longitude_textView);
         currentTime = rootView.findViewById(R.id.Current_Time_textView);
 
+
+
+
+        latitude.setText("latitude: " + Float.toString(lat));
+        longitude.setText("longitude: " + Float.toString(lon));
+
+
+        timer = new Timer(false);
 
         TimerTask taskAstro = new TimerTask() {
             @Override
@@ -95,19 +108,70 @@ public class ScreenSlideMoonFragment extends Fragment {
 
                 getActivity().runOnUiThread(()->{
                     currentTime.setText(dateFormat.format((now.getTime())));
+                    Log.println(Log.INFO, "test", "tick");
                 });
             }
         };
 
-        latitude.setText("latitude: " + Float.toString(lat));
-        longitude.setText("longitude: " + Float.toString(lon));
 
-        timer = new Timer(false);
         timer.scheduleAtFixedRate(taskAstro, 0, refreshrate);
         timer.scheduleAtFixedRate(taskTime, 0, 1000);
 
         return rootView;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        timer.cancel();
+        timer = new Timer(false);
+        TimerTask taskTime = new TimerTask() {
+            @Override
+            public void run() {
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Calendar now = Calendar.getInstance();
+
+                getActivity().runOnUiThread(()->{
+                    currentTime.setText(dateFormat.format((now.getTime())));
+                    Log.println(Log.INFO, "test", "tick");
+                });
+            }
+        };
+        TimerTask taskAstro = new TimerTask() {
+            @Override
+            public void run() {
+                TimeZone zone = TimeZone.getTimeZone("Europe/Warsaw");
+                TimeZone.setDefault(zone);
+                Calendar now = Calendar.getInstance();
+                AstroDateTime dateTime = new AstroDateTime(
+                        now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH),
+                        now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND),
+                        (zone.getOffset(new Date().getTime()) / 1000 / 60 / 60 ) - 1, zone.inDaylightTime(new Date())
+                );
+                AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
+                AstroCalculator as = new AstroCalculator(dateTime, location);
+
+
+                getActivity().runOnUiThread(()->{
+                    moonrise.setText(as.getMoonInfo().getMoonrise().toString());
+                    moonset.setText(as.getMoonInfo().getMoonset().toString());
+                    newmoon.setText(as.getMoonInfo().getNextNewMoon().toString());
+                    fullmoon.setText(as.getMoonInfo().getNextFullMoon().toString());
+                    illumination.setText(Double.toString(as.getMoonInfo().getIllumination() * 100));
+                    synodic.setText(Double.toString(as.getMoonInfo().getAge()));
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(taskAstro, 0, refreshrate);
+        timer.scheduleAtFixedRate(taskTime, 0, 1000);
+    }
+
 
     @Override
     public void onDestroy() {
