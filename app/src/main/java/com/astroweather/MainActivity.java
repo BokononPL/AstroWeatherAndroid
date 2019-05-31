@@ -25,9 +25,27 @@ public class MainActivity extends AppCompatActivity {
         refreshrate = findViewById(R.id.Refresh_Rate_Value_editText);
 
         proceedbutton.setOnClickListener(v -> {
-            float lat = Float.parseFloat(latitude.getText().toString());
-            float lon = Float.parseFloat(longitude.getText().toString());
-            int rr = Integer.parseInt(refreshrate.getText().toString());
+            float lat, lon;
+            int rr;
+
+            try {
+                lat = Float.parseFloat(latitude.getText().toString());
+            }
+            catch(NumberFormatException nfe) {
+                lat = -420;
+            }
+            try {
+                lon = Float.parseFloat(longitude.getText().toString());
+            }
+            catch(NumberFormatException nfe) {
+                lon = -420;
+            }
+            try {
+                rr = Integer.parseInt(refreshrate.getText().toString());
+            }
+            catch(NumberFormatException nfe) {
+                rr = 0;
+            }
             if(lat > 180 || lat < -180 || lon > 180 || lon < -180 || rr < 1) {
                 Toast.makeText(this, "Invalid data", Toast.LENGTH_SHORT).show();
             }
