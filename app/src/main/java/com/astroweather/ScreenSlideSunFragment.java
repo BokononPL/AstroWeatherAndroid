@@ -1,7 +1,6 @@
 package com.astroweather;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +26,13 @@ public class ScreenSlideSunFragment extends Fragment {
     private TextView sunset_azimuth;
     private TextView twilight_morning;
     private TextView twilight_evening;
+    private TextView latitude;
+    private TextView longitude;
     private TextView currentTime;
     private ViewGroup rootView;
 
-    private float latitude = 0;
-    private float longitude = 0;
+    private float lat = 0;
+    private float lon = 0;
     private int refreshrate = 1000;
 
     private Timer timer;
@@ -43,8 +44,8 @@ public class ScreenSlideSunFragment extends Fragment {
                 R.layout.sun_fragment_layout, container, false);
 
         ScreenSlideActivity ssa = (ScreenSlideActivity) getActivity();
-        latitude = ssa.getLatitude();
-        longitude = ssa.getLongitude();
+        lat = ssa.getLatitude();
+        lon = ssa.getLongitude();
         refreshrate = ssa.getRefreshrate() * 1000;
 
         sunrise_time = rootView.findViewById(R.id.Sunrise_Time_Value_textView);
@@ -53,6 +54,8 @@ public class ScreenSlideSunFragment extends Fragment {
         sunset_azimuth = rootView.findViewById(R.id.Sunset_Azimuth_Value_textView);
         twilight_morning = rootView.findViewById(R.id.Twilight_Morning_Value_textView);
         twilight_evening = rootView.findViewById(R.id.Twilight_Evening_Value_textView);
+        latitude = rootView.findViewById(R.id.Latitude_textView);
+        longitude = rootView.findViewById(R.id.Longitude_textView);
         currentTime = rootView.findViewById(R.id.Current_Time_textView);
 
 
@@ -67,7 +70,7 @@ public class ScreenSlideSunFragment extends Fragment {
                         now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND),
                         (zone.getOffset(new Date().getTime()) / 1000 / 60 / 60 ) - 1, zone.inDaylightTime(new Date())
                 );
-                AstroCalculator.Location location = new AstroCalculator.Location(latitude, longitude);
+                AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
                 AstroCalculator as = new AstroCalculator(dateTime, location);
 
 
@@ -93,6 +96,9 @@ public class ScreenSlideSunFragment extends Fragment {
                 });
             }
         };
+
+        latitude.setText("latitude: " + Float.toString(lat));
+        longitude.setText("longitude: " + Float.toString(lon));
 
         timer = new Timer(false);
         timer.scheduleAtFixedRate(taskAstro, 0, refreshrate);

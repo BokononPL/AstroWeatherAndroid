@@ -1,7 +1,6 @@
 package com.astroweather;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +26,13 @@ public class ScreenSlideMoonFragment extends Fragment {
     private TextView fullmoon;
     private TextView illumination;
     private TextView synodic;
+    private TextView latitude;
+    private TextView longitude;
     private TextView currentTime;
     private ViewGroup rootView;
 
-    private float latitude = 0;
-    private float longitude = 0;
+    private float lat = 0;
+    private float lon = 0;
     private int refreshrate = 1000;
 
     private Timer timer;
@@ -45,8 +46,8 @@ public class ScreenSlideMoonFragment extends Fragment {
                 R.layout.moon_fragment_layout, container, false);
 
         ScreenSlideActivity ssa = (ScreenSlideActivity) getActivity();
-        latitude = ssa.getLatitude();
-        longitude = ssa.getLongitude();
+        lat = ssa.getLatitude();
+        lon = ssa.getLongitude();
         refreshrate = ssa.getRefreshrate() * 1000;
 
         moonrise = rootView.findViewById(R.id.Moonrise_Value_textView);
@@ -55,6 +56,8 @@ public class ScreenSlideMoonFragment extends Fragment {
         fullmoon = rootView.findViewById(R.id.Fullmoon_Value_textView);
         illumination = rootView.findViewById(R.id.Moon_Illumination_Value_textView);
         synodic = rootView.findViewById(R.id.Moon_Age_Value_textView);
+        latitude = rootView.findViewById(R.id.Latitude_textView);
+        longitude = rootView.findViewById(R.id.Longitude_textView);
         currentTime = rootView.findViewById(R.id.Current_Time_textView);
 
 
@@ -69,7 +72,7 @@ public class ScreenSlideMoonFragment extends Fragment {
                         now.get(Calendar.HOUR), now.get(Calendar.MINUTE), now.get(Calendar.SECOND),
                         (zone.getOffset(new Date().getTime()) / 1000 / 60 / 60 ) - 1, zone.inDaylightTime(new Date())
                 );
-                AstroCalculator.Location location = new AstroCalculator.Location(latitude, longitude);
+                AstroCalculator.Location location = new AstroCalculator.Location(lat, lon);
                 AstroCalculator as = new AstroCalculator(dateTime, location);
 
 
@@ -95,6 +98,9 @@ public class ScreenSlideMoonFragment extends Fragment {
                 });
             }
         };
+
+        latitude.setText("latitude: " + Float.toString(lat));
+        longitude.setText("longitude: " + Float.toString(lon));
 
         timer = new Timer(false);
         timer.scheduleAtFixedRate(taskAstro, 0, refreshrate);
