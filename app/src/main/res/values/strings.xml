@@ -19,4 +19,10 @@
     <string name="title_longitude">Longitude</string>
     <string name="title_refreshrate">Refresh rate (in seconds)</string>
     <string name="button_proceed">Proceed</string>
+
+    <string name="title_temperature">Temperature</string>
+    <string name="title_pressure">Pressure</string>
+    <string name="title_humidity">Humidity</string>
+    <string name="title_forecast">3-Day Forecast</string>
+    <string name="title_current">Current Weather</string>
 </resources>

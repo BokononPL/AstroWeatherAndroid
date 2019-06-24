@@ -31,10 +31,9 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\nall: ");
-            msg.append(all);
-            return msg.toString();
+            return "Clouds{" +
+                    "all=" + all +
+                    '}';
         }
     }
 
@@ -48,12 +47,10 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\nlon: ");
-            msg.append(lon);
-            msg.append("\nlat: ");
-            msg.append(lat);
-            return msg.toString();
+            return "Coord{" +
+                    "lon=" + lon +
+                    ", lat=" + lat +
+                    '}';
         }
     }
 
@@ -70,18 +67,13 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\ntemp: ");
-            msg.append(temp);
-            msg.append("\npressure: ");
-            msg.append(pressure);
-            msg.append("\nhumidity: ");
-            msg.append(humidity);
-            msg.append("\ntempMin: ");
-            msg.append(tempMin);
-            msg.append("\ntempMax: ");
-            msg.append(tempMax);
-            return msg.toString();
+            return "Main{" +
+                    "temp=" + temp +
+                    ", pressure=" + pressure +
+                    ", humidity=" + humidity +
+                    ", tempMin=" + tempMin +
+                    ", tempMax=" + tempMax +
+                    '}';
         }
     }
 
@@ -97,12 +89,10 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\n3h: ");
-            msg.append(_3h);
-            msg.append("\n1h: ");
-            msg.append(_1h);
-            return msg.toString();
+            return "Rain{" +
+                    "_3h=" + _3h +
+                    ", _1h=" + _1h +
+                    '}';
         }
     }
 
@@ -115,10 +105,9 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\n3h: ");
-            msg.append(_3h);
-            return msg.toString();
+            return "Snow{" +
+                    "_3h=" + _3h +
+                    '}';
         }
     }
 
@@ -136,20 +125,14 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\ntype: ");
-            msg.append(type);
-            msg.append("\nid: ");
-            msg.append(id);
-            msg.append("\nmessage: ");
-            msg.append(message);
-            msg.append("\ncountry: ");
-            msg.append(country);
-            msg.append("\nsunrise: ");
-            msg.append(sunrise);
-            msg.append("\nsunset: ");
-            msg.append(sunset);
-            return msg.toString();
+            return "Sys{" +
+                    "type=" + type +
+                    ", id=" + id +
+                    ", message=" + message +
+                    ", country='" + country + '\'' +
+                    ", sunrise=" + sunrise +
+                    ", sunset=" + sunset +
+                    '}';
         }
     }
 
@@ -165,16 +148,12 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\nid: ");
-            msg.append(id);
-            msg.append("\nmain: ");
-            msg.append(main);
-            msg.append("\ndescription: ");
-            msg.append(description);
-            msg.append("\nicon: ");
-            msg.append(icon);
-            return msg.toString();
+            return "Weather{" +
+                    "id=" + id +
+                    ", main='" + main + '\'' +
+                    ", description='" + description + '\'' +
+                    ", icon='" + icon + '\'' +
+                    '}';
         }
     }
 
@@ -188,46 +167,30 @@ public class WeatherData {
 
         @Override
         public String toString() {
-            StringBuilder msg = new StringBuilder();
-            msg.append("\nspeed: ");
-            msg.append(speed);
-            msg.append("\ndeg: ");
-            msg.append(deg);
-            return msg.toString();
+            return "Wind{" +
+                    "speed=" + speed +
+                    ", deg=" + deg +
+                    '}';
         }
     }
 
     @Override
     public String toString() {
-        StringBuilder msg = new StringBuilder();
-        msg.append("\nbase: ");
-        msg.append(base);
-        msg.append("\nvisibility: ");
-        msg.append(visibility);
-        msg.append("\ndt: ");
-        msg.append(dt);
-        msg.append("\nid: ");
-        msg.append(id);
-        msg.append("\nname: ");
-        msg.append(name);
-        msg.append("\ncod: ");
-        msg.append(cod);
-        msg.append("\n------Coord------");
-        msg.append(coord);
-        msg.append("\n------Weather------");
-        msg.append(weather.get(0));
-        msg.append("\n------Main------");
-        msg.append(main);
-        msg.append("\n------Wind------");
-        msg.append(wind);
-        msg.append("\n------Rain------");
-        msg.append(rain);
-        msg.append("\n------Snow------");
-        msg.append(snow);
-        msg.append("\n------Clouds------");
-        msg.append(clouds);
-        msg.append("\n------Sys------");
-        msg.append(sys);
-        return msg.toString();
+        return "\n###------WeatherData------###" +
+                "\nbase=" + base +
+                "  visibility=" + visibility +
+                "  id=" + id +
+                "  name=" + name +
+                "  cod=" + cod +
+                "  dt=" + dt +
+                "\n------coord------\n" + coord +
+                "\n------weather------\n" + weather.get(0) +
+                "\n------main------\n" + main +
+                "\n------wind------\n" + wind +
+                "\n------rain------\n" + rain +
+                "\n------snow------\n" + snow +
+                "\n------clouds------\n" + clouds +
+                "\n------sys------\n" + sys
+                ;
     }
 }
