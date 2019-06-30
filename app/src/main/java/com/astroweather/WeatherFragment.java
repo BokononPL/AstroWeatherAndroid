@@ -2,14 +2,14 @@ package com.astroweather;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,9 +32,15 @@ public class WeatherFragment extends Fragment {
     private static final String appid = "a9dae46044971ae4518fa00924c7cc6e";
     private static final double absolute_zero = -273.15;
 
-    private boolean isCelsius = true;
+    public String city = "";
+    public String country = "";
+    public Boolean isCelsius = true;
+
+    public String data = "";
 
     private ViewGroup rootView;
+
+    private ScreenSlideActivity2 ssa = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +48,10 @@ public class WeatherFragment extends Fragment {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.weather_fragment_layout, container, false);
 
-        ScreenSlideActivity ssa = (ScreenSlideActivity) getActivity();
+        ssa = (ScreenSlideActivity2) getActivity();
+        city = ssa.getCity().toLowerCase();
+        country = ssa.getCountry().toLowerCase();
+        isCelsius = ssa.getCelsius();
 
         location = rootView.findViewById(R.id.Location_textView);
         latitude = rootView.findViewById(R.id.Latitude_Value_textView);
@@ -53,14 +62,9 @@ public class WeatherFragment extends Fragment {
         current_pressure = rootView.findViewById(R.id.Current_Pressure_Value_textView);
         current_humidity = rootView.findViewById(R.id.Current_Humidity_Value_textView);
 
-        String city = "London";
-        String country = "uk";
-
         String weather_url = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s,%s&mode=json&appid=%s", city, country, appid);
         String response1 = "";
         new RequestWeatherAsyncTask().execute(weather_url, null, response1);
-
-
 
         return rootView;
     }
@@ -82,6 +86,8 @@ public class WeatherFragment extends Fragment {
 
             try {
                 response = request(strings[0]);
+                data = response;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,24 +101,42 @@ public class WeatherFragment extends Fragment {
             Gson gson = new Gson();
             WeatherData wd = gson.fromJson(s, WeatherData.class);
 
-            System.out.println(wd);
+            //System.out.println(wd);
+            try {
+                Glide.with(current_weather_image)
+                        .load(String.format("http://openweathermap.org/img/w/%s.png", wd.weather.get(0).icon))
+                        .into(current_weather_image);
 
-            Glide.with(current_weather_image)
-                    .load(String.format("http://openweathermap.org/img/w/%s.png", wd.weather.get(0).icon))
-                    .into(current_weather_image);
+                location.setText(wd.name + " (" + wd.sys.country + ")");
+                longitude.setText("longitude: " + wd.coord.lon.toString());
+                latitude.setText("latitude: " + wd.coord.lat.toString());
+                current_weather.setText(wd.weather.get(0).description);
+                if (isCelsius) {
+                    current_temperature.setText(Integer.toString((int) Math.round(wd.main.temp + absolute_zero)) + "°C");
+                } else {
+                    current_temperature.setText(Integer.toString((int) Math.round((wd.main.temp + absolute_zero) * (9 / 5) + 32)) + "°F");
+                }
+                current_pressure.setText(Integer.toString(wd.main.pressure) + " hPa");
+                current_humidity.setText(Integer.toString(wd.main.humidity) + "%");
+            }
+            catch (NullPointerException npe){
+                System.out.println("communication failed");
+            }
 
-            location.setText(wd.name + " (" + wd.sys.country + ")");
-            longitude.setText("longitude: " + wd.coord.lon.toString());
-            latitude.setText("latitude: " + wd.coord.lat.toString());
-            current_weather.setText(wd.weather.get(0).description);
-            if(isCelsius) {
-                current_temperature.setText(Integer.toString((int)Math.round(wd.main.temp + absolute_zero)) + "°C");
-            }
-            else {
-                current_temperature.setText(Integer.toString((int)Math.round((wd.main.temp + absolute_zero) * (9/5) + 32)) + "°F");
-            }
-            current_pressure.setText(Integer.toString(wd.main.pressure) + " hPa");
-            current_humidity.setText(Integer.toString(wd.main.humidity) + "%");
+            LocationDatabase db = LocationDatabase.getInstance(ssa.getApplicationContext());
+            LocationDao locationDao = db.locationDao();
+
+            AsyncTask.execute(() -> {
+                locationDao.insert(new Location("London", "xD",2, data));
+            });
+
+            AsyncTask.execute(() -> {
+                for(Location l : locationDao.getAllLocations()) {
+                    System.out.println("xD");
+                    System.out.println(l);
+                }
+            });
+
         }
     }
 }

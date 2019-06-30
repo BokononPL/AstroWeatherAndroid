@@ -2,7 +2,7 @@ package com.astroweather;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +42,9 @@ public class ForecastFragment extends Fragment {
     private static final String appid = "a9dae46044971ae4518fa00924c7cc6e";
     private static final double absolute_zero = -273.15;
 
-    private boolean isCelsius = true;
+    public String city = "";
+    public String country = "";
+    public Boolean isCelsius = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +52,10 @@ public class ForecastFragment extends Fragment {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.forecast_fragment_layout, container, false);
 
-        ScreenSlideActivity ssa = (ScreenSlideActivity) getActivity();
+        ScreenSlideActivity2 ssa = (ScreenSlideActivity2) getActivity();
+        city = ssa.getCity().toLowerCase();
+        country = ssa.getCountry().toLowerCase();
+        isCelsius = ssa.getCelsius();
 
         location = rootView.findViewById(R.id.Location_textView);
         latitude = rootView.findViewById(R.id.Latitude_Value_textView);
@@ -70,11 +75,6 @@ public class ForecastFragment extends Fragment {
         day3_image = rootView.findViewById(R.id.Day3_imageView);
 
 
-
-
-
-        String city = "London";
-        String country = "uk";
 
         String forecast_url = String.format("https://api.openweathermap.org/data/2.5/forecast?q=%s,%s&mode=json&appid=%s", city, country, appid);
         String response2 = "";
@@ -113,55 +113,54 @@ public class ForecastFragment extends Fragment {
             Gson gson = new Gson();
             ForecastData fd = gson.fromJson(s, ForecastData.class);
 
-            System.out.println(fd);
+            //System.out.println(fd);
 
+            try {
+                location.setText(fd.city.name + " (" + fd.city.country + ")");
+                longitude.setText("longitude: " + (String.format("%.2f", fd.city.coord.lon)));
+                latitude.setText("latitude: " + String.format("%.2f", fd.city.coord.lat));
 
+                int i = 3;
+                do {
+                    if (fd.list.get(i).dt_txt.split(" ")[1].compareTo("12:00:00") == 0) {
+                        break;
+                    } else {
+                        i++;
+                    }
+                } while (true);
 
+                Glide.with(day1_image)
+                        .load(String.format("http://openweathermap.org/img/w/%s.png", fd.list.get(i).weather.get(0).icon))
+                        .into(day1_image);
 
+                Glide.with(day2_image)
+                        .load(String.format("http://openweathermap.org/img/w/%s.png", fd.list.get(i + 8).weather.get(0).icon))
+                        .into(day2_image);
 
-            location.setText(fd.city.name + " (" + fd.city.country + ")");
-            longitude.setText("longitude: " + (String.format("%.2f", fd.city.coord.lon)));
-            latitude.setText("latitude: " + String.format("%.2f", fd.city.coord.lat));
+                Glide.with(day3_image)
+                        .load(String.format("http://openweathermap.org/img/w/%s.png", fd.list.get(i + 16).weather.get(0).icon))
+                        .into(day3_image);
 
-            int i = 3;
-            do{
-                if(fd.list.get(i).dt_txt.split(" ")[1].compareTo("12:00:00") == 0){
-                    break;
+                day1_title.setText(fd.list.get(i).dt_txt);
+                day2_title.setText(fd.list.get(i + 8).dt_txt);
+                day3_title.setText(fd.list.get(i + 16).dt_txt);
+
+                day1_description.setText(fd.list.get(i).weather.get(0).description);
+                day2_description.setText(fd.list.get(i + 8).weather.get(0).description);
+                day3_description.setText(fd.list.get(i + 16).weather.get(0).description);
+
+                if (isCelsius) {
+                    day1_temperature.setText(Integer.toString((int) Math.round(fd.list.get(i).main.temp + absolute_zero)) + "°C");
+                    day2_temperature.setText(Integer.toString((int) Math.round(fd.list.get(i + 8).main.temp + absolute_zero)) + "°C");
+                    day3_temperature.setText(Integer.toString((int) Math.round(fd.list.get(i + 16).main.temp + absolute_zero)) + "°C");
+                } else {
+                    day1_temperature.setText(Integer.toString((int) Math.round((fd.list.get(i).main.temp + absolute_zero) * (9 / 5) + 32)) + "°F");
+                    day2_temperature.setText(Integer.toString((int) Math.round((fd.list.get(i + 8).main.temp + absolute_zero) * (9 / 5) + 32)) + "°F");
+                    day3_temperature.setText(Integer.toString((int) Math.round((fd.list.get(i + 16).main.temp + absolute_zero) * (9 / 5) + 32)) + "°F");
                 }
-                else{
-                    i++;
-                }
-            }while(true);
-
-            Glide.with(day1_image)
-                    .load(String.format("http://openweathermap.org/img/w/%s.png", fd.list.get(i).weather.get(0).icon))
-                    .into(day1_image);
-
-            Glide.with(day2_image)
-                    .load(String.format("http://openweathermap.org/img/w/%s.png", fd.list.get(i+8).weather.get(0).icon))
-                    .into(day2_image);
-
-            Glide.with(day3_image)
-                    .load(String.format("http://openweathermap.org/img/w/%s.png", fd.list.get(i+16).weather.get(0).icon))
-                    .into(day3_image);
-
-            day1_title.setText(fd.list.get(i).dt_txt);
-            day2_title.setText(fd.list.get(i+8).dt_txt);
-            day3_title.setText(fd.list.get(i+16).dt_txt);
-
-            day1_description.setText(fd.list.get(i).weather.get(0).description);
-            day2_description.setText(fd.list.get(i+8).weather.get(0).description);
-            day3_description.setText(fd.list.get(i+16).weather.get(0).description);
-
-            if(isCelsius) {
-                day1_temperature.setText(Integer.toString((int)Math.round(fd.list.get(i).main.temp + absolute_zero)) + "°C");
-                day2_temperature.setText(Integer.toString((int)Math.round(fd.list.get(i+8).main.temp + absolute_zero)) + "°C");
-                day3_temperature.setText(Integer.toString((int)Math.round(fd.list.get(i+16).main.temp + absolute_zero)) + "°C");
             }
-            else {
-                day1_temperature.setText(Integer.toString((int)Math.round((fd.list.get(i).main.temp + absolute_zero) * (9/5) + 32)) + "°F");
-                day2_temperature.setText(Integer.toString((int)Math.round((fd.list.get(i+8).main.temp + absolute_zero) * (9/5) + 32)) + "°F");
-                day3_temperature.setText(Integer.toString((int)Math.round((fd.list.get(i+16).main.temp + absolute_zero) * (9/5) + 32)) + "°F");
+            catch (NullPointerException npe) {
+                System.out.println("communication failed");
             }
         }
     }

@@ -6,6 +6,7 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url 'https://maven.google.com' }
+        //maven { url 'https://kotlin.bintray.com/kotlinx/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
@@ -25,4 +26,9 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    roomVersion = '2.1.0-alpha06'
+    archLifecycleVersion = '2.0.0'
 }

@@ -1,12 +1,12 @@
 package com.astroweather;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class ScreenSlideActivity2 extends FragmentActivity {
     private static final int NUM_PAGES = 2;
@@ -14,20 +14,21 @@ public class ScreenSlideActivity2 extends FragmentActivity {
 
     private PagerAdapter pagerAdapter;
 
+    private String city;
+    private String country;
+    private Boolean isCelsius;
 
-//    private float latitude;
-//    private float longitude;
-//    private int refreshrate;
-//
-//    public int getRefreshrate() {
-//        return refreshrate;
-//    }
-//    public float getLatitude() {
-//        return latitude;
-//    }
-//    public float getLongitude() {
-//        return longitude;
-//    }
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public Boolean getCelsius() {
+        return isCelsius;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,6 @@ public class ScreenSlideActivity2 extends FragmentActivity {
         setContentView(R.layout.slide_layout2);
 
         mPager = findViewById(R.id.pager2);
-
-//        Fragment sunfragment = new ScreenSlideSunFragment();
-//        Fragment moonfragment = new ScreenSlideMoonFragment();
-//        Fragment statusfragment = new StatusDisplayFragment();
 
         Fragment weatherfragment = new WeatherFragment();
         Fragment forecastfragment = new ForecastFragment();
@@ -55,10 +52,10 @@ public class ScreenSlideActivity2 extends FragmentActivity {
             pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
             mPager.setAdapter(pagerAdapter);
         }
-//
-//        latitude = getIntent().getFloatExtra("latitude", 0);
-//        longitude = getIntent().getFloatExtra("longitude", 0);
-//        refreshrate = getIntent().getIntExtra("refreshrate", 100);
+
+        city = getIntent().getStringExtra("city");
+        country = getIntent().getStringExtra("country");
+        isCelsius = getIntent().getBooleanExtra("isCelsius", true);
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {

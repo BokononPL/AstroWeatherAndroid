@@ -25,4 +25,10 @@
     <string name="title_humidity">Humidity</string>
     <string name="title_forecast">3-Day Forecast</string>
     <string name="title_current">Current Weather</string>
+
+    <string name="Celsius">Celsius</string>
+    <string name="Fahrenheit">Fahrenheit</string>
+    <string name="weather_forecast">Weather Forecast</string>
+    <string name="title_city">City</string>
+    <string name="title_country">Country</string>
 </resources>
