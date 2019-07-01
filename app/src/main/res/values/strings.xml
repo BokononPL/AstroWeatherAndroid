@@ -33,4 +33,5 @@
     <string name="title_country">Country</string>
 
     <string name="select">Select</string>
+    <string name="add_favourite">Add New Location</string>
 </resources>

@@ -65,10 +65,17 @@ public class WeatherInputActivity extends AppCompatActivity {
                 Toast.makeText(this, "Invalid data", Toast.LENGTH_SHORT).show();
             }
             else {
-                Intent nextScreen = new Intent(getApplicationContext(), ScreenSlideActivity2.class);
-                nextScreen.putExtra("city", t1);
-                nextScreen.putExtra("country", t2);
-                nextScreen.putExtra("isCelsius", true);
+                Intent nextScreen = new Intent(getApplicationContext(), LocationListActivity.class);
+//                nextScreen.putExtra("city", t1);
+//                nextScreen.putExtra("country", t2);
+//                nextScreen.putExtra("isCelsius", true);
+                try {
+                    new AddToDatabaseAsyncTask().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 startActivity(nextScreen);
             }
         });
@@ -98,5 +105,23 @@ public class WeatherInputActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) { }
+    }
+
+    private class AddToDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LocationDatabase db = LocationDatabase.getInstance(getApplicationContext());
+            LocationDao locationDao = db.locationDao();
+
+            locationDao.insert(new Location(city.getText().toString(), country.getText().toString(), null));
+            return null;
+        }
     }
 }

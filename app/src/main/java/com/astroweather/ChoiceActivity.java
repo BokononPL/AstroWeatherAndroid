@@ -24,7 +24,7 @@ public class ChoiceActivity extends AppCompatActivity {
         });
 
         weatherbutton.setOnClickListener(v -> {
-            Intent nextScreen = new Intent(getApplicationContext(), WeatherInputActivity.class);
+            Intent nextScreen = new Intent(getApplicationContext(), LocationListActivity.class);
             startActivity(nextScreen);
         });
 

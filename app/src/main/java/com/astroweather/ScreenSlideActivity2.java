@@ -14,11 +14,17 @@ public class ScreenSlideActivity2 extends FragmentActivity {
 
     private PagerAdapter pagerAdapter;
 
-    private String city;
-    private String country;
-    private Boolean isCelsius;
+//    private String city;
+//    private String country;
+//    private Boolean isCelsius;
 
-    public String getCity() {
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+/*    public String getCity() {
         return city;
     }
 
@@ -28,7 +34,7 @@ public class ScreenSlideActivity2 extends FragmentActivity {
 
     public Boolean getCelsius() {
         return isCelsius;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +59,10 @@ public class ScreenSlideActivity2 extends FragmentActivity {
             mPager.setAdapter(pagerAdapter);
         }
 
-        city = getIntent().getStringExtra("city");
-        country = getIntent().getStringExtra("country");
-        isCelsius = getIntent().getBooleanExtra("isCelsius", true);
+//        city = getIntent().getStringExtra("city");
+//        country = getIntent().getStringExtra("country");
+//        isCelsius = getIntent().getBooleanExtra("isCelsius", true);
+        id = getIntent().getStringExtra("id");
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {

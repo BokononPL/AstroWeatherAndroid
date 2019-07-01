@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -45,6 +46,9 @@ public class ForecastFragment extends Fragment {
     public String city = "";
     public String country = "";
     public Boolean isCelsius = true;
+    public String id;
+
+    private ScreenSlideActivity2 ssa = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,10 +56,22 @@ public class ForecastFragment extends Fragment {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.forecast_fragment_layout, container, false);
 
-        ScreenSlideActivity2 ssa = (ScreenSlideActivity2) getActivity();
-        city = ssa.getCity().toLowerCase();
-        country = ssa.getCountry().toLowerCase();
-        isCelsius = ssa.getCelsius();
+        ssa = (ScreenSlideActivity2) getActivity();
+//        city = ssa.getCity().toLowerCase();
+//        country = ssa.getCountry().toLowerCase();
+//        isCelsius = ssa.getCelsius();
+        id = ssa.getId();
+
+        Location l = null;
+        try {
+            l = new DatabaseAccessAsyncTask().execute(id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        city = l.getCity();
+        country = l.getCountry();
 
         location = rootView.findViewById(R.id.Location_textView);
         latitude = rootView.findViewById(R.id.Latitude_Value_textView);
@@ -81,6 +97,22 @@ public class ForecastFragment extends Fragment {
         new RequestForecastAsyncTask().execute(forecast_url, null, response2);
 
         return rootView;
+    }
+
+    private class DatabaseAccessAsyncTask extends AsyncTask<String, Void, Location> {
+        @Override
+        protected void onPostExecute(Location location) {
+            super.onPostExecute(location);
+        }
+
+        @Override
+        protected Location doInBackground(String... strings) {
+            LocationDatabase db = LocationDatabase.getInstance(ssa.getApplicationContext());
+            LocationDao locationDao = db.locationDao();
+
+            Location l = locationDao.findById(strings[0]).get(0);
+            return l;
+        }
     }
 
     private class RequestForecastAsyncTask extends AsyncTask<String, Void, String> {

@@ -1,6 +1,7 @@
 package com.astroweather;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -60,7 +61,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         ((TextView)holder.linearLayout.findViewById(R.id.RVE_City_textView)).setText(locations.get(position).getCity());
         ((TextView)holder.linearLayout.findViewById(R.id.RVE_Country_textView)).setText(locations.get(position).getCountry());
         holder.linearLayout.findViewById(R.id.cl1).setOnClickListener(v -> {
-            System.out.println("xD" + position);
+            System.out.println("LOL " + position);
+            Intent nextScreen = new Intent(context, ScreenSlideActivity2.class);
+            nextScreen.putExtra("id", locations.get(position).getId().toString());
+            nextScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(nextScreen);
         });
         holder.linearLayout.findViewById(R.id.RVE_Select_button).setOnClickListener(v -> {
             new OnClickAsyncTask().execute(position);

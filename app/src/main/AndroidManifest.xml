@@ -16,12 +16,12 @@
         tools:ignore="GoogleAppIndexingWarning"
         android:usesCleartextTraffic="true">
         <activity android:name=".LocationListActivity">
+        </activity>
+        <activity android:name=".ChoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ChoiceActivity">
         </activity>
         <activity android:name=".WeatherInputActivity">
         </activity>

@@ -1,8 +1,10 @@
 package com.astroweather;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -22,6 +24,8 @@ public class LocationListActivity extends Activity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private Button addLocationButton;
+
     private LocationDao locationDao;
 
     @Override
@@ -39,8 +43,6 @@ public class LocationListActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        String[] dataset  = {"chuj", "kurwa", "jebac", "policje"};
-
         ArrayList<Location> locations = new ArrayList<Location>();
 
         LocationDatabase db = LocationDatabase.getInstance(this.getApplicationContext());
@@ -52,13 +54,20 @@ public class LocationListActivity extends Activity {
         recyclerView.setAdapter(mAdapter);
 
 
-        AsyncTask.execute(() -> {
+        addLocationButton = findViewById(R.id.Add_Favourite_button);
+        addLocationButton.setOnClickListener(v -> {
+            Intent nextScreen = new Intent(getApplicationContext(), WeatherInputActivity.class);
+            startActivity(nextScreen);
+        });
+
+
+/*        AsyncTask.execute(() -> {
             locationDao.insert(new Location("Warsaw", "pl", null));
         });
 
         AsyncTask.execute(() -> {
             locationDao.insert(new Location("Berlin", "de", null));
-        });
+        });*/
 
 
 /*        AsyncTask.execute(() -> {
