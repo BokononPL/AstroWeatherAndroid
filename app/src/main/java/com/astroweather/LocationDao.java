@@ -26,4 +26,7 @@ public interface LocationDao {
 
     @Query("SELECT * FROM locations WHERE id LIKE :id LIMIT 1")
     List<Location> findById(String id);
+
+    @Query("DELETE FROM locations WHERE id LIKE :id")
+    void deleteById(String id);
 }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
- import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -127,7 +127,7 @@ public class WeatherFragment extends Fragment {
             LocationDao locationDao = db.locationDao();
 
             AsyncTask.execute(() -> {
-                locationDao.insert(new Location("London", "xD",2, data));
+                locationDao.insert(new Location("London", "xD", data));
             });
 
             AsyncTask.execute(() -> {

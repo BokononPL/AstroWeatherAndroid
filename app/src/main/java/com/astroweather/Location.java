@@ -10,7 +10,7 @@ public class Location {
     private String city;
     @NonNull
     private String country;
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private Integer id;
 
@@ -26,10 +26,9 @@ public class Location {
                 '}';
     }
 
-    public Location(@NonNull String city, @NonNull String country, @NonNull Integer id, String data) {
+    public Location(@NonNull String city, @NonNull String country, String data) {
         this.city = city;
         this.country = country;
-        this.id = id;
         this.data = data;
     }
 
