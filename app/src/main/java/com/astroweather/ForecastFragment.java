@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -39,6 +41,9 @@ public class ForecastFragment extends Fragment {
     private ImageView day1_image;
     private ImageView day2_image;
     private ImageView day3_image;
+
+    private Button refresh_button;
+
 
     private static final String appid = "a9dae46044971ae4518fa00924c7cc6e";
     private static final double absolute_zero = -273.15;
@@ -90,11 +95,17 @@ public class ForecastFragment extends Fragment {
         day3_temperature = rootView.findViewById(R.id.Day3_Temperature_textView);
         day3_image = rootView.findViewById(R.id.Day3_imageView);
 
+        refresh_button = rootView.findViewById(R.id.Forecast_Refresh_button);
 
 
         String forecast_url = String.format("https://api.openweathermap.org/data/2.5/forecast?q=%s,%s&mode=json&appid=%s", city, country, appid);
         String response2 = "";
         new RequestForecastAsyncTask().execute(forecast_url, null, response2);
+
+        refresh_button.setOnClickListener(v -> {
+            new RequestForecastAsyncTask().execute(forecast_url, null, response2);
+            Toast.makeText(ssa, "Refreshing data", Toast.LENGTH_SHORT).show();
+        });
 
         return rootView;
     }

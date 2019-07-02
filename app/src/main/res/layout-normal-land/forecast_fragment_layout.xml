@@ -10,12 +10,10 @@
         android:id="@+id/Location_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
         android:text="TextView"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,32 +21,32 @@
         android:id="@+id/Latitude_Value_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
         android:text="TextView"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Location_textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Longitude_Value_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Location_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Latitude_Value_textView" />
 
     <TextView
         android:id="@+id/Day1_Title_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Forecast_Title_textView" />
 
@@ -56,21 +54,21 @@
         android:id="@+id/Day1_Description_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:text="TextView"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day1_Title_textView" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/Day1_Title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/Forecast_Title_textView" />
 
     <ImageView
         android:id="@+id/Day1_imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="120dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day1_Title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/Forecast_Title_textView"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -80,9 +78,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day1_Title_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Forecast_Title_textView" />
 
     <TextView
         android:id="@+id/Day2_Title_textView"
@@ -91,41 +89,41 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day1_Description_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Day1_Title_textView" />
 
     <TextView
         android:id="@+id/Day2_Description_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day2_Title_textView" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/Day2_Title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/Day1_Description_textView" />
 
     <ImageView
         android:id="@+id/Day2_imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="120dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day2_Title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/Day1_Description_textView"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/Day2_Temperature_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day2_Title_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Day1_Temperature_textView" />
 
     <TextView
         android:id="@+id/Day3_Title_textView"
@@ -134,7 +132,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Day2_Description_textView" />
 
@@ -142,33 +140,33 @@
         android:id="@+id/Day3_imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="120dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day3_Title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/Day2_Description_textView"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/Day3_Description_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day3_Title_textView" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/Day3_Title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/Day2_Description_textView" />
 
     <TextView
         android:id="@+id/Day3_Temperature_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Day3_Title_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Day2_Temperature_textView" />
 
     <TextView
         android:id="@+id/Forecast_Title_textView"
@@ -178,10 +176,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:text="@string/title_forecast"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Latitude_Value_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Location_textView" />
 
     <Button
         android:id="@+id/Forecast_Refresh_button"

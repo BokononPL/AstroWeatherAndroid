@@ -28,10 +28,11 @@
 
     <string name="Celsius">Celsius</string>
     <string name="Fahrenheit">Fahrenheit</string>
-    <string name="weather_forecast">Weather Forecast</string>
+    <string name="weather_forecast">Add Favourite Location</string>
     <string name="title_city">City</string>
     <string name="title_country">Country</string>
 
     <string name="select">Select</string>
     <string name="add_favourite">Add New Location</string>
+    <string name="refresh">Refresh</string>
 </resources>

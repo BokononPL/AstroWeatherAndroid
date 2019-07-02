@@ -10,12 +10,10 @@
         android:id="@+id/Location_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
         android:text="TextView"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +21,7 @@
         android:id="@+id/Current_Weather_imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Weather_Title_textView"
@@ -36,7 +34,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
         android:text="TextView"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Weather_imageView" />
 
@@ -47,7 +45,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:text="@string/title_temperature"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Weather_imageView" />
 
@@ -56,9 +54,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Weather_Title_textView" />
 
@@ -69,7 +67,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:text="@string/title_pressure"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Temperature_Title_textView" />
 
@@ -80,7 +78,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
         android:text="TextView"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Temperature_Value_textView" />
 
@@ -91,7 +89,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:text="@string/title_humidity"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Pressure_Title_textView" />
 
@@ -102,7 +100,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
         android:text="TextView"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Current_Pressure_Value_textView" />
 
@@ -110,23 +108,23 @@
         android:id="@+id/Latitude_Value_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
         android:text="TextView"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Location_textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/Longitude_Value_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Location_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Latitude_Value_textView" />
 
     <TextView
         android:id="@+id/Current_Weather_Title_textView"
@@ -136,10 +134,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:text="@string/title_current"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Latitude_Value_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Location_textView" />
 
     <Button
         android:id="@+id/Weather_Refresh_button"

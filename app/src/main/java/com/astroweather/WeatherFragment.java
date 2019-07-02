@@ -1,13 +1,16 @@
 package com.astroweather;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -29,6 +32,8 @@ public class WeatherFragment extends Fragment {
     private TextView latitude;
     private TextView longitude;
     private ImageView current_weather_image;
+
+    private Button refresh_button;
 
     private static final String appid = "a9dae46044971ae4518fa00924c7cc6e";
     private static final double absolute_zero = -273.15;
@@ -76,9 +81,16 @@ public class WeatherFragment extends Fragment {
         current_pressure = rootView.findViewById(R.id.Current_Pressure_Value_textView);
         current_humidity = rootView.findViewById(R.id.Current_Humidity_Value_textView);
 
+        refresh_button = rootView.findViewById(R.id.Weather_Refresh_button);
+
         String weather_url = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s,%s&mode=json&appid=%s", city, country, appid);
         String response1 = "";
         new RequestWeatherAsyncTask().execute(weather_url, null, response1);
+
+        refresh_button.setOnClickListener(v -> {
+            new RequestWeatherAsyncTask().execute(weather_url, null, response1);
+            Toast.makeText(ssa, "Refreshing data", Toast.LENGTH_SHORT).show();
+        });
 
         return rootView;
     }
@@ -118,6 +130,13 @@ public class WeatherFragment extends Fragment {
                 response = request(strings[0]);
                 data = response;
 
+                LocationDatabase db = LocationDatabase.getInstance(ssa.getApplicationContext());
+                LocationDao locationDao = db.locationDao();
+
+                Location l = locationDao.findById(id).get(0);
+                l.setData(response);
+                locationDao.update(l);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -153,7 +172,7 @@ public class WeatherFragment extends Fragment {
                 System.out.println("communication failed");
             }
 
-            LocationDatabase db = LocationDatabase.getInstance(ssa.getApplicationContext());
+/*            LocationDatabase db = LocationDatabase.getInstance(ssa.getApplicationContext());
             LocationDao locationDao = db.locationDao();
 
             AsyncTask.execute(() -> {
@@ -161,7 +180,7 @@ public class WeatherFragment extends Fragment {
                     System.out.println("xD");
                     System.out.println(l);
                 }
-            });
+            });*/
 
         }
     }
